@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"takeaways.cards3\""],
+  "requiredIds": ["s-take"],
+  "requiredClasses": ["take-grid", "take"]
+}
+

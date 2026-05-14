@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"screens.grid8Lightbox\"", "querySelectorAll(\".shot-tile\")"],
+  "requiredIds": ["s-shots"],
+  "requiredClasses": ["screen-rows", "shot-tile"]
+}
+

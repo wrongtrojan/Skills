@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"capabilities.cards4\""],
+  "requiredIds": ["s-cap"],
+  "requiredClasses": ["grid-cards", "card"]
+}
+

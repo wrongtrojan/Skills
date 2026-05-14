@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"architecture.dualSvgZoom\"", "querySelectorAll(\".arch-panel\")"],
+  "requiredIds": ["s-arch"],
+  "requiredClasses": ["arch-wrap", "arch-panel"]
+}
+

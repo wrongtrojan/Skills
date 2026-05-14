@@ -1,0 +1,151 @@
+{
+  "version": "1.0.0",
+  "presets": {
+    "dracula": {
+      "description": "Dark Dracula visual preset with interactive sections.",
+      "defaultComponents": [
+        "cover.basic",
+        "elevator.basic",
+        "capabilities.cards4",
+        "screens.grid8Lightbox",
+        "architecture.dualSvgZoom",
+        "outlook.columns",
+        "takeaways.cards3",
+        "thanks.basicFooter"
+      ]
+    }
+  },
+  "components": [
+    {
+      "key": "cover.basic",
+      "section": "s-cover",
+      "variant": "basic",
+      "html": "assets/components/cover/basic/component.html",
+      "requiredIds": ["s-cover"],
+      "requiredClasses": ["slide"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/cover.basic.json"
+    },
+    {
+      "key": "elevator.basic",
+      "section": "s-elevator",
+      "variant": "basic",
+      "html": "assets/components/elevator/basic/component.html",
+      "requiredIds": ["s-elevator"],
+      "requiredClasses": ["slide", "elevator"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/elevator.basic.json"
+    },
+    {
+      "key": "capabilities.cards4",
+      "section": "s-cap",
+      "variant": "cards4",
+      "html": "assets/components/capabilities/cards4/component.html",
+      "requiredIds": ["s-cap"],
+      "requiredClasses": ["grid-cards", "card"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/capabilities.cards4.json"
+    },
+    {
+      "key": "screens.grid8Lightbox",
+      "section": "s-shots",
+      "variant": "grid8Lightbox",
+      "html": "assets/components/screens/grid8Lightbox/component.html",
+      "requiredIds": ["s-shots"],
+      "requiredClasses": ["screen-rows", "shot-tile"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/screens.grid8Lightbox.json"
+    },
+    {
+      "key": "architecture.dualSvgZoom",
+      "section": "s-arch",
+      "variant": "dualSvgZoom",
+      "html": "assets/components/architecture/dualSvgZoom/component.html",
+      "requiredIds": ["s-arch"],
+      "requiredClasses": ["arch-wrap", "arch-panel"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/architecture.dualSvgZoom.json"
+    },
+    {
+      "key": "outlook.columns",
+      "section": "s-out",
+      "variant": "columns",
+      "html": "assets/components/outlook/columns/component.html",
+      "requiredIds": ["s-out"],
+      "requiredClasses": ["cols-3", "col"],
+      "requires": [],
+      "conflicts": ["outlook.roadmapOverlay"],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/outlook.columns.json"
+    },
+    {
+      "key": "outlook.roadmapOverlay",
+      "section": "s-out",
+      "variant": "roadmapOverlay",
+      "html": "assets/components/outlook/roadmapOverlay/component.html",
+      "overlay": "assets/components/outlook/roadmapOverlay/overlay.html",
+      "css": "assets/components/outlook/roadmapOverlay/component.css",
+      "script": "assets/components/outlook/roadmapOverlay/component.js",
+      "requiredIds": [
+        "s-out",
+        "roadmap-full",
+        "roadmap-full-title",
+        "roadmap-full-body",
+        "roadmap-full-close",
+        "roadmap-full-backdrop"
+      ],
+      "requiredClasses": ["roadmap-grid", "roadmap-tile", "roadmap-full"],
+      "requires": [],
+      "conflicts": ["outlook.columns"],
+      "defaultEnabled": false,
+      "validationRule": "validation-rules/outlook.roadmapOverlay.json"
+    },
+    {
+      "key": "outlook.miniList",
+      "section": "s-out",
+      "variant": "miniList",
+      "html": "assets/components/outlook/miniList/component.html",
+      "requiredIds": ["s-out"],
+      "requiredClasses": ["col"],
+      "requires": [],
+      "conflicts": ["outlook.columns", "outlook.roadmapOverlay"],
+      "defaultEnabled": false,
+      "validationRule": "validation-rules/outlook.miniList.json"
+    },
+    {
+      "key": "takeaways.cards3",
+      "section": "s-take",
+      "variant": "cards3",
+      "html": "assets/components/takeaways/cards3/component.html",
+      "requiredIds": ["s-take"],
+      "requiredClasses": ["take-grid", "take"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/takeaways.cards3.json"
+    },
+    {
+      "key": "thanks.basicFooter",
+      "section": "s-thanks",
+      "variant": "basicFooter",
+      "html": "assets/components/thanks/basicFooter/component.html",
+      "requiredIds": ["s-thanks"],
+      "requiredClasses": ["slide-thanks", "thanks-foot"],
+      "requires": [],
+      "conflicts": [],
+      "defaultEnabled": true,
+      "validationRule": "validation-rules/thanks.basicFooter.json"
+    }
+  ]
+}
+

@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"outlook.miniList\""],
+  "requiredIds": ["s-out"],
+  "requiredClasses": ["col"]
+}
+

@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"outlook.columns\""],
+  "requiredIds": ["s-out"],
+  "requiredClasses": ["cols-3", "col"]
+}
+

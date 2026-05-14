@@ -1,0 +1,23 @@
+{
+  "title": "Manifest 路径验收",
+  "project": "ContextMap",
+  "subtitle": "通过 manifest 精控组件与内容",
+  "positioning": "可配置组件化 HTML-PPT",
+  "core_object": "项目资料",
+  "core_capability_1": "自动组装",
+  "core_capability_2": "按需校验",
+  "repo_url": "https://github.com/wrongtrojan/ContextMap",
+  "repo_text": "github.com/wrongtrojan/ContextMap",
+  "license_text": "MIT",
+  "components": [
+    "cover.basic",
+    "elevator.basic",
+    "capabilities.cards4",
+    "screens.grid8Lightbox",
+    "architecture.dualSvgZoom",
+    "outlook.roadmapOverlay",
+    "takeaways.cards3",
+    "thanks.basicFooter"
+  ]
+}
+

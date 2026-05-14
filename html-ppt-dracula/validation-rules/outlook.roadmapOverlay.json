@@ -1,0 +1,18 @@
+{
+  "requiredMarkers": [
+    "data-component-key=\"outlook.roadmapOverlay\"",
+    "querySelectorAll(\".roadmap-tile\")",
+    "openRoadmapFull(",
+    "closeRoadmapFull("
+  ],
+  "requiredIds": [
+    "s-out",
+    "roadmap-full",
+    "roadmap-full-title",
+    "roadmap-full-body",
+    "roadmap-full-close",
+    "roadmap-full-backdrop"
+  ],
+  "requiredClasses": ["roadmap-grid", "roadmap-tile", "roadmap-full"]
+}
+

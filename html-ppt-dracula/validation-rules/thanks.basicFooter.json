@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"thanks.basicFooter\""],
+  "requiredIds": ["s-thanks"],
+  "requiredClasses": ["slide-thanks", "thanks-foot"]
+}
+

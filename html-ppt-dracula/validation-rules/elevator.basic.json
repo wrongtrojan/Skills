@@ -1,0 +1,6 @@
+{
+  "requiredMarkers": ["data-component-key=\"elevator.basic\""],
+  "requiredIds": ["s-elevator"],
+  "requiredClasses": ["elevator"]
+}
+
