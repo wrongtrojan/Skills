@@ -20,6 +20,7 @@ CORE_MARKERS = [
     'id="lightbox-cap"',
     'e.key === "Escape"',
 ]
+PLACEHOLDER_PATTERN = re.compile(r"\[[A-Za-z\u4e00-\u9fff][A-Za-z0-9_\-\u4e00-\u9fff]*\]")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -28,6 +29,17 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--manifest", default="", help="Manifest JSON path.")
     parser.add_argument("--components", default="", help="Comma-separated component keys.")
     parser.add_argument("--preset", default="dracula", help="Preset fallback if keys are not explicit.")
+    parser.add_argument(
+        "--allow-placeholders",
+        action="store_true",
+        help="Do not fail when unresolved [PLACEHOLDER] tokens are found.",
+    )
+    parser.add_argument(
+        "--placeholder-report-limit",
+        type=int,
+        default=20,
+        help="Max unresolved placeholders to include in validation output.",
+    )
     return parser
 
 
@@ -87,6 +99,53 @@ def resolve_enabled_keys(
     return list(registry.get("presets", {}).get(preset, {}).get("defaultComponents", []))
 
 
+def validate_component_dependencies(
+    enabled_keys: list[str],
+    components_by_key: dict[str, dict[str, Any]],
+) -> list[str]:
+    issues: list[str] = []
+    selected = set(enabled_keys)
+    reported_conflicts: set[tuple[str, str]] = set()
+
+    for key in enabled_keys:
+        meta = components_by_key.get(key)
+        if not meta:
+            continue
+
+        for required_key in meta.get("requires", []):
+            if required_key not in selected:
+                issues.append(f"[{key}] missing required component: {required_key}")
+
+        for conflicting_key in meta.get("conflicts", []):
+            if conflicting_key not in selected:
+                continue
+            pair = tuple(sorted((key, conflicting_key)))
+            if pair in reported_conflicts:
+                continue
+            reported_conflicts.add(pair)
+            issues.append(f"[{key}] conflicts with enabled component: {conflicting_key}")
+
+    return issues
+
+
+def extract_unresolved_placeholders(html: str) -> list[tuple[int, str]]:
+    unresolved: list[tuple[int, str]] = []
+    for line_no, line in enumerate(html.splitlines(), start=1):
+        for match in PLACEHOLDER_PATTERN.findall(line):
+            unresolved.append((line_no, match))
+    return unresolved
+
+
+def find_duplicate_keys(keys: list[str]) -> list[str]:
+    seen: set[str] = set()
+    duplicates: set[str] = set()
+    for key in keys:
+        if key in seen:
+            duplicates.add(key)
+        seen.add(key)
+    return sorted(duplicates)
+
+
 def main() -> int:
     args = build_parser().parse_args()
     html_path = Path(args.html_file).expanduser().resolve()
@@ -131,6 +190,25 @@ def main() -> int:
         manifest_data=manifest_data,
         cli_keys=parse_keys(args.components),
     )
+    duplicate_keys = find_duplicate_keys(enabled_keys)
+    for dup in duplicate_keys:
+        issues.append(f"Duplicate enabled component key: {dup}")
+
+    issues.extend(validate_component_dependencies(enabled_keys, components_by_key))
+    expected_sections = [components_by_key[key]["section"] for key in enabled_keys if key in components_by_key]
+    if expected_sections and section_ids != expected_sections:
+        issues.append(f"Component section order mismatch. sections={section_ids} expected={expected_sections}")
+
+    unresolved_placeholders = extract_unresolved_placeholders(html)
+    if unresolved_placeholders and not args.allow_placeholders:
+        limit = max(0, args.placeholder_report_limit)
+        shown = unresolved_placeholders[:limit] if limit else []
+        issues.append(f"Unresolved placeholders found: {len(unresolved_placeholders)}")
+        for line_no, token in shown:
+            issues.append(f"[placeholder] {token} at line {line_no}")
+        if len(unresolved_placeholders) > len(shown):
+            hidden_count = len(unresolved_placeholders) - len(shown)
+            issues.append(f"[placeholder] ... {hidden_count} more not shown")
 
     for key in enabled_keys:
         meta = components_by_key.get(key)

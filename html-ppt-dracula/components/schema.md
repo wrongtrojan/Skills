@@ -48,6 +48,17 @@ Rule file structure in `validation-rules/*.json`:
 
 All checks are string/regex-lite presence checks in final HTML output.
 
+## Validator Coverage (Required)
+
+`scripts/validate_structure.py` must enforce:
+
+- core markers and section/nav/script id alignment
+- enabled component `requiredIds` / `requiredClasses`
+- component graph constraints: `requires` and `conflicts`
+- unresolved placeholder detection (`[PLACEHOLDER]`-style tokens)
+
+By default unresolved placeholders fail validation. Use `--allow-placeholders` only for draft outputs.
+
 ## Extension Workflow
 
 To add a new component:

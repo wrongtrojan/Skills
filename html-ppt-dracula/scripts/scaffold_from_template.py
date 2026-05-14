@@ -33,6 +33,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--repo-url", default="https://github.com/wrongtrojan/ContextMap", help="Repo URL for thanks footer.")
     parser.add_argument("--repo-text", default="github.com/wrongtrojan/ContextMap", help="Repo text for thanks footer.")
     parser.add_argument("--license-text", default="MIT", help="License text in thanks footer.")
+    parser.add_argument(
+        "--strict-assets",
+        action="store_true",
+        help="Fail when optional component assets (overlay/css/script) are missing.",
+    )
     return parser
 
 
@@ -97,11 +102,18 @@ def apply_replacements(content: str, values: dict[str, str]) -> str:
     return content
 
 
-def read_optional(skill_root: Path, rel_path: str) -> str:
+def read_optional(
+    skill_root: Path,
+    rel_path: str,
+    key: str,
+    field: str,
+    missing_assets: list[str],
+) -> str:
     if not rel_path:
         return ""
     full = skill_root / rel_path
     if not full.exists():
+        missing_assets.append(f"[{key}] missing {field}: {rel_path}")
         return ""
     return full.read_text(encoding="utf-8").strip()
 
@@ -166,6 +178,7 @@ def main() -> int:
     style_chunks: list[str] = []
     script_chunks: list[str] = []
     section_ids: list[str] = []
+    missing_assets: list[str] = []
 
     for key in keys:
         meta = components_by_key[key]
@@ -175,15 +188,33 @@ def main() -> int:
         section_htmls.append(html_filled)
         section_ids.append(meta["section"])
 
-        overlay_raw = read_optional(skill_root, meta.get("overlay", ""))
+        overlay_raw = read_optional(
+            skill_root=skill_root,
+            rel_path=meta.get("overlay", ""),
+            key=key,
+            field="overlay",
+            missing_assets=missing_assets,
+        )
         if overlay_raw:
             overlay_htmls.append(apply_replacements(overlay_raw, replacements))
 
-        css_raw = read_optional(skill_root, meta.get("css", ""))
+        css_raw = read_optional(
+            skill_root=skill_root,
+            rel_path=meta.get("css", ""),
+            key=key,
+            field="css",
+            missing_assets=missing_assets,
+        )
         if css_raw:
             style_chunks.append(css_raw)
 
-        js_raw = read_optional(skill_root, meta.get("script", ""))
+        js_raw = read_optional(
+            skill_root=skill_root,
+            rel_path=meta.get("script", ""),
+            key=key,
+            field="script",
+            missing_assets=missing_assets,
+        )
         if js_raw:
             script_chunks.append(js_raw)
 
@@ -201,6 +232,13 @@ def main() -> int:
     print(f"Generated: {output_path}")
     print(f"Preset: {effective_preset}")
     print(f"Components: {', '.join(keys)}")
+    if missing_assets:
+        print("WARNING: missing optional component assets:")
+        for item in missing_assets:
+            print(f"- {item}")
+        if args.strict_assets:
+            print("ERROR: strict asset mode enabled.")
+            return 1
     return 0
 
 

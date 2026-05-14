@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>duplicate key fail</title>
+</head>
+<body>
+  <nav class="nav-dots" aria-label="nav">
+    <a href="#s-cover">cover</a>
+    <a href="#s-cover-2">cover2</a>
+  </nav>
+  <main id="deck">
+    <section class="slide" id="s-cover" data-component-key="cover.basic">
+      <h1>First cover</h1>
+    </section>
+    <section class="slide" id="s-cover-2" data-component-key="cover.basic">
+      <h1>Second cover</h1>
+    </section>
+  </main>
+  <div id="lightbox">
+    <button id="lightbox-backdrop"></button>
+    <button id="lightbox-close"></button>
+    <img id="lightbox-img" alt="" />
+    <p id="lightbox-cap"></p>
+  </div>
+  <script>
+    var ids = ["s-cover", "s-cover-2"];
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

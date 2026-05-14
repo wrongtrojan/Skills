@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>placeholder fail</title>
+</head>
+<body>
+  <nav class="nav-dots" aria-label="nav">
+    <a href="#s-cover">cover</a>
+  </nav>
+  <main id="deck">
+    <section class="slide" id="s-cover" data-component-key="cover.basic">
+      <p>[UNRESOLVED_TOKEN]</p>
+    </section>
+  </main>
+  <div id="lightbox">
+    <button id="lightbox-backdrop"></button>
+    <button id="lightbox-close"></button>
+    <img id="lightbox-img" alt="" />
+    <p id="lightbox-cap"></p>
+  </div>
+  <script>
+    var ids = ["s-cover"];
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

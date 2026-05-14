@@ -45,7 +45,8 @@ Never hardcode business components in orchestration logic. Read registry and com
 4. Inject optional overlays/styles/scripts declared by each component.
 5. Replace placeholders for title/repo/text fields.
 6. Run validator (`core + enabled component rules`).
-7. Fix all failures before delivery.
+7. Ensure unresolved placeholders are cleared (unless explicitly validating draft mode).
+8. Fix all failures before delivery.
 
 ## Script Commands
 
@@ -73,6 +74,18 @@ Validation:
 python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/validate_structure.py" "path/to/output.html"
 ```
 
+Allow placeholders in draft-only validation:
+
+```bash
+python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/validate_structure.py" "path/to/output.html" --allow-placeholders
+```
+
+Strict optional-asset mode during scaffold:
+
+```bash
+python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/scaffold_from_template.py" --output "path/to/output.html" --preset dracula --strict-assets
+```
+
 ## New Component 5-Step Method
 
 1. Create snippet directory: `assets/components/<section>/<variant>/`.
@@ -87,5 +100,15 @@ python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/validate_structur
 - Keep dot-nav, scroll-snap, keyboard navigation, and lightbox close semantics.
 - Keep dark Dracula style unless user explicitly requests another preset/theme.
 - Keep validator zero false-positive for disabled components.
+- Keep `requires/conflicts` constraints validated for enabled components.
+- Keep publish outputs free of unresolved placeholders (`[PLACEHOLDER]` tokens).
+
+## Recommended Delivery Workflow
+
+1. Scaffold deck (`--preset` or `--manifest`).
+2. Run strict scaffold check once before release (`--strict-assets`).
+3. Run validator in default mode (placeholder checks enabled).
+4. Only use `--allow-placeholders` for temporary draft validation.
+5. Perform manual visual preview after validator passes.
 
 

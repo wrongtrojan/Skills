@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>section order fail</title>
+</head>
+<body>
+  <nav class="nav-dots" aria-label="nav">
+    <a href="#s-elevator">elevator</a>
+    <a href="#s-cover">cover</a>
+  </nav>
+  <main id="deck">
+    <section class="slide elevator" id="s-elevator" data-component-key="cover.basic">
+      <h2>Wrong section for cover.basic</h2>
+    </section>
+    <section class="slide" id="s-cover" data-component-key="elevator.basic">
+      <h2>Wrong section for elevator.basic</h2>
+    </section>
+  </main>
+  <div id="lightbox">
+    <button id="lightbox-backdrop"></button>
+    <button id="lightbox-close"></button>
+    <img id="lightbox-img" alt="" />
+    <p id="lightbox-cap"></p>
+  </div>
+  <script>
+    var ids = ["s-elevator", "s-cover"];
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

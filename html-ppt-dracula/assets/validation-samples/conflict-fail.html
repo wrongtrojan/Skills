@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>conflict fail</title>
+</head>
+<body>
+  <nav class="nav-dots" aria-label="nav">
+    <a href="#s-out">outlook</a>
+    <a href="#s-extra">extra</a>
+  </nav>
+  <main id="deck">
+    <section class="slide" id="s-out" data-component-key="outlook.columns">
+      <div class="cols-3">
+        <article class="col">A</article>
+      </div>
+    </section>
+    <section class="slide" id="s-extra" data-component-key="outlook.roadmapOverlay">
+      <div class="roadmap-grid">
+        <button type="button" class="roadmap-tile"><h3>topic</h3></button>
+      </div>
+    </section>
+  </main>
+
+  <div class="roadmap-full" id="roadmap-full">
+    <h2 id="roadmap-full-title">title</h2>
+    <div id="roadmap-full-body"></div>
+    <button id="roadmap-full-close">close</button>
+    <button id="roadmap-full-backdrop">backdrop</button>
+  </div>
+
+  <div id="lightbox">
+    <button id="lightbox-backdrop"></button>
+    <button id="lightbox-close"></button>
+    <img id="lightbox-img" alt="" />
+    <p id="lightbox-cap"></p>
+  </div>
+  <script>
+    var ids = ["s-out", "s-extra"];
+    function openRoadmapFull() {}
+    function closeRoadmapFull() {}
+    document.querySelectorAll(".roadmap-tile");
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
