@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Web</title>
+    <link rel="stylesheet" href="./css/quiz.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <h1>练习题交互网页</h1>
+        <p class="subtitle">按章翻页 · 小题作答 · 提交后查看参考答案</p>
+      </header>
+
+      <nav id="chapter-tabs" class="chapter-tabs" aria-label="章节切换"></nav>
+      <main id="content" class="content"></main>
+
+      <footer class="toolbar">
+        <button id="prev-btn" type="button">上一章</button>
+        <button id="submit-btn" type="button" class="primary">提交答案</button>
+        <button id="hide-ref-btn" type="button">隐藏参考答案</button>
+        <button id="next-btn" type="button">下一章</button>
+      </footer>
+
+      <div class="statusbar">
+        <span id="chapter-indicator">-</span>
+        <span id="save-indicator">未保存</span>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="./js/quiz-data.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>

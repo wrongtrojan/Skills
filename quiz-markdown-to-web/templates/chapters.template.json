@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ch2",
+    "title": "第二章 · 信息的表示和处理",
+    "order": 2,
+    "questionMd": "第二章/第二章-CSAPP练习题.md",
+    "answerMd": "第二章/第二章-CSAPP练习题-含答案.md"
+  },
+  {
+    "id": "ch3",
+    "title": "第三章 · 程序的机器级表示",
+    "order": 3,
+    "questionMd": "第三章/第三章-CSAPP练习题.md",
+    "answerMd": "第三章/第三章-CSAPP练习题-含答案.md"
+  }
+]
