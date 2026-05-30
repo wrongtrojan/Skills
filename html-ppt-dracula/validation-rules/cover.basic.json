@@ -1,6 +1,0 @@
-{
-  "requiredMarkers": ["data-component-key=\"cover.basic\""],
-  "requiredIds": ["s-cover"],
-  "requiredClasses": ["slide"]
-}
-

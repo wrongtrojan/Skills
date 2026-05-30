@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deck Title</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <!-- Paste component bundle CSS below (typography, layout, content, flow, interactive, slides, legacy as needed):
+       <link rel="stylesheet" href="../../components/_bundles/typography.css" />
+       Or inline a merged <style> block from bundles + framework/dracula/base.css -->
+  <link rel="stylesheet" href="base.css" />
+</head>
+<body>
+
+  <nav class="nav-dots" aria-label="幻灯导航">
+    <a href="#s-slide-1">Slide 1</a>
+    <a href="#s-slide-2">Slide 2</a>
+  </nav>
+
+  <main class="deck" id="deck">
+
+    <section class="slide" id="s-slide-1">
+      <div class="inner">
+        <!-- paste slide content from components/slides/cover/component.html or other snippets -->
+      </div>
+    </section>
+
+    <section class="slide" id="s-slide-2">
+      <div class="inner">
+        <!-- second slide -->
+      </div>
+    </section>
+
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="大图预览" aria-hidden="true">
+    <button type="button" class="overlay-backdrop" id="lightbox-backdrop" aria-label="关闭预览"></button>
+    <div class="lightbox-inner">
+      <button type="button" class="overlay-close" id="lightbox-close" aria-label="关闭">×</button>
+      <img id="lightbox-img" src="" alt="" />
+      <p class="lightbox-cap" id="lightbox-cap"></p>
+    </div>
+  </div>
+
+  <div class="detail-overlay" id="detail-overlay" role="dialog" aria-modal="true" aria-label="详情" aria-hidden="true">
+    <button type="button" class="overlay-backdrop" id="detail-backdrop" aria-label="关闭详情"></button>
+    <div class="detail-panel" id="detail-panel">
+      <button type="button" class="overlay-close" id="detail-close" aria-label="关闭">×</button>
+      <h3 id="detail-title"></h3>
+      <div id="detail-body"></div>
+    </div>
+  </div>
+
+  <!-- Optional KaTeX: see components/math/katex/head.html -->
+  <script src="runtime.js"></script>
+</body>
+</html>

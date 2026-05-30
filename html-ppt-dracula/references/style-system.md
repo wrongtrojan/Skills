@@ -1,17 +1,19 @@
-# Dracula Preset Style System
+# Dracula Style System (v2)
 
-This file defines the `dracula` preset. Keep it as preset-level policy, not core runtime logic.
+Preset-level visual policy for html-ppt-dracula v2. Runtime lives in `framework/dracula/`.
 
-## Preset Identity
+## Framework files
 
-- Dark-first background (`--bg`, `--bg-alt`)
-- Low-noise geometric/radial decoration
-- Sparse high-contrast accents (purple/cyan/pink)
-- Subtle motion only (`translateY(-1px/-2px)`)
+| File | Role |
+|------|------|
+| `tokens.css` | `:root` color/spacing tokens |
+| `base.css` | body, deck, slide, inner, h1–h2, nav-dots, scroll lock |
+| `runtime.js` | nav, lightbox, detail, keyboard, KaTeX hooks |
+| `shell.html` | minimal 2-slide starter |
 
-## Token Baseline
+## Token baseline
 
-Use these defaults in `:root`:
+Defined in `framework/dracula/tokens.css`:
 
 ```css
 --bg: #1a1b26;
@@ -30,38 +32,43 @@ Use these defaults in `:root`:
 --shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
 ```
 
-## Preset Layout Constraints
+Fonts: **DM Sans** (UI), **JetBrains Mono** (labels/code).
 
-- `main.deck#deck` keeps scroll-snap and hidden scrollbar
-- `.slide` keeps full viewport rhythm (`100vh/100dvh`)
-- default max content width near `1100px`
-- breakpoints stay at `820px`, `520px` unless user asks otherwise
+## Layout (v2)
 
-## Interaction Constraints
+- `main.deck#deck` — scroll-snap, hidden scrollbar
+- `.slide` — full viewport (`100vh` / `100dvh`)
+- `.inner` — **max-width 1180px**, centered, vertical gap via flex
+- Breakpoints: **820px** (stack grids, move nav dots bottom), **520px** (single-column screenshots)
 
-Shared hover/focus recipe for cards/tiles/panels:
+## Decoration
 
-- border accent toward purple
-- small lift transform
-- cyan focus-visible ring for keyboard users
+- `base.css` — subtle corner gradients + line pattern on `body::before`
+- `legacy.css` — optional extra radial layers + per-slide highlight (product decks)
 
-Lightbox interaction remains required:
+## Interaction recipe
 
-- close by close button/backdrop/Escape
-- lock scroll while open
+Cards, tiles, panels:
 
-## Variant-specific Preset Notes
+- hover: purple border accent, `translateY(-2px)`
+- focus-visible: cyan outline where applicable
+- lightbox/detail: backdrop + Escape closes, scroll locked via `html.lightbox-open` / `html.detail-open`
 
-- `outlook.columns`: no overlay runtime needed.
-- `outlook.roadmapOverlay`: include roadmap full-screen overlay styles and large title/list scale.
+## Component CSS
 
-## Extension Guidance
+Do not edit bundles for one-off slides unless the pattern is reusable. Prefer copying snippet HTML and tweaking content only.
 
-When adding a new component variant under Dracula preset:
+When adding a new reusable pattern:
 
-1. reuse existing token palette
-2. match existing interaction recipe
-3. keep readability first (avoid heavy glow/blur)
-4. if unique visuals are needed, scope in component css instead of changing base shell globally
+1. Add rules to the appropriate `components/_bundles/*.css`
+2. Add example to `components/<cat>/<slug>/component.html`
+3. Register in `components/registry.json` via `bootstrap_v2_library.py`
 
+## Academic vs product
 
+| Aspect | Academic (RE-seminar) | Product (legacy) |
+|--------|----------------------|------------------|
+| Kicker | `.section-kicker` | `.kicker` |
+| Outlook | timeline, direction cards | `columns3` or `roadmapOverlay` |
+| Width | 1180px | 1180px (v2 unified) |
+| Bundles | flow + interactive | slides + legacy |

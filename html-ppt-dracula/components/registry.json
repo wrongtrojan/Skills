@@ -1,151 +1,566 @@
 {
-  "version": "1.0.0",
-  "presets": {
-    "dracula": {
-      "description": "Dark Dracula visual preset with interactive sections.",
-      "defaultComponents": [
-        "cover.basic",
-        "elevator.basic",
-        "capabilities.cards4",
-        "screens.grid8Lightbox",
-        "architecture.dualSvgZoom",
-        "outlook.columns",
-        "takeaways.cards3",
-        "thanks.basicFooter"
-      ]
-    }
-  },
+  "version": "2.0.0",
+  "categories": [
+    "typography",
+    "layout",
+    "content",
+    "flow",
+    "interactive",
+    "math",
+    "slides"
+  ],
   "components": [
     {
-      "key": "cover.basic",
-      "section": "s-cover",
-      "variant": "basic",
-      "html": "assets/components/cover/basic/component.html",
-      "requiredIds": ["s-cover"],
-      "requiredClasses": ["slide"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/cover.basic.json"
-    },
-    {
-      "key": "elevator.basic",
-      "section": "s-elevator",
-      "variant": "basic",
-      "html": "assets/components/elevator/basic/component.html",
-      "requiredIds": ["s-elevator"],
-      "requiredClasses": ["slide", "elevator"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/elevator.basic.json"
-    },
-    {
-      "key": "capabilities.cards4",
-      "section": "s-cap",
-      "variant": "cards4",
-      "html": "assets/components/capabilities/cards4/component.html",
-      "requiredIds": ["s-cap"],
-      "requiredClasses": ["grid-cards", "card"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/capabilities.cards4.json"
-    },
-    {
-      "key": "screens.grid8Lightbox",
-      "section": "s-shots",
-      "variant": "grid8Lightbox",
-      "html": "assets/components/screens/grid8Lightbox/component.html",
-      "requiredIds": ["s-shots"],
-      "requiredClasses": ["screen-rows", "shot-tile"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/screens.grid8Lightbox.json"
-    },
-    {
-      "key": "architecture.dualSvgZoom",
-      "section": "s-arch",
-      "variant": "dualSvgZoom",
-      "html": "assets/components/architecture/dualSvgZoom/component.html",
-      "requiredIds": ["s-arch"],
-      "requiredClasses": ["arch-wrap", "arch-panel"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/architecture.dualSvgZoom.json"
-    },
-    {
-      "key": "outlook.columns",
-      "section": "s-out",
-      "variant": "columns",
-      "html": "assets/components/outlook/columns/component.html",
-      "requiredIds": ["s-out"],
-      "requiredClasses": ["cols-3", "col"],
-      "requires": [],
-      "conflicts": ["outlook.roadmapOverlay"],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/outlook.columns.json"
-    },
-    {
-      "key": "outlook.roadmapOverlay",
-      "section": "s-out",
-      "variant": "roadmapOverlay",
-      "html": "assets/components/outlook/roadmapOverlay/component.html",
-      "overlay": "assets/components/outlook/roadmapOverlay/overlay.html",
-      "css": "assets/components/outlook/roadmapOverlay/component.css",
-      "script": "assets/components/outlook/roadmapOverlay/component.js",
-      "requiredIds": [
-        "s-out",
-        "roadmap-full",
-        "roadmap-full-title",
-        "roadmap-full-body",
-        "roadmap-full-close",
-        "roadmap-full-backdrop"
+      "key": "typography.partBanner",
+      "category": "typography",
+      "variants": [
+        "static"
       ],
-      "requiredClasses": ["roadmap-grid", "roadmap-tile", "roadmap-full"],
-      "requires": [],
-      "conflicts": ["outlook.columns"],
-      "defaultEnabled": false,
-      "validationRule": "validation-rules/outlook.roadmapOverlay.json"
+      "files": {
+        "css": "components/typography/part-banner/component.css",
+        "html": "components/typography/part-banner/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "长 deck Part 分段标题",
+      "doc": "references/component-catalog.md#part-banner"
     },
     {
-      "key": "outlook.miniList",
-      "section": "s-out",
-      "variant": "miniList",
-      "html": "assets/components/outlook/miniList/component.html",
-      "requiredIds": ["s-out"],
-      "requiredClasses": ["col"],
-      "requires": [],
-      "conflicts": ["outlook.columns", "outlook.roadmapOverlay"],
-      "defaultEnabled": false,
-      "validationRule": "validation-rules/outlook.miniList.json"
+      "key": "typography.sectionKicker",
+      "category": "typography",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/typography/section-kicker/component.css",
+        "html": "components/typography/section-kicker/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "章节/锚点 kicker",
+      "doc": "references/component-catalog.md#section-kicker"
     },
     {
-      "key": "takeaways.cards3",
-      "section": "s-take",
-      "variant": "cards3",
-      "html": "assets/components/takeaways/cards3/component.html",
-      "requiredIds": ["s-take"],
-      "requiredClasses": ["take-grid", "take"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/takeaways.cards3.json"
+      "key": "typography.lead",
+      "category": "typography",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/typography/lead/component.css",
+        "html": "components/typography/lead/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "页级一句导读",
+      "doc": "references/component-catalog.md#lead"
     },
     {
-      "key": "thanks.basicFooter",
-      "section": "s-thanks",
-      "variant": "basicFooter",
-      "html": "assets/components/thanks/basicFooter/component.html",
-      "requiredIds": ["s-thanks"],
-      "requiredClasses": ["slide-thanks", "thanks-foot"],
-      "requires": [],
-      "conflicts": [],
-      "defaultEnabled": true,
-      "validationRule": "validation-rules/thanks.basicFooter.json"
+      "key": "typography.subhead",
+      "category": "typography",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/typography/subhead/component.css",
+        "html": "components/typography/subhead/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "页内小节标题 h3.subhead",
+      "doc": "references/component-catalog.md#subhead"
+    },
+    {
+      "key": "typography.footnote",
+      "category": "typography",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/typography/footnote/component.css",
+        "html": "components/typography/footnote/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "页脚/图注",
+      "doc": "references/component-catalog.md#footnote"
+    },
+    {
+      "key": "layout.gridCards",
+      "category": "layout",
+      "variants": [
+        "cols-2",
+        "cols-3",
+        "cols-4"
+      ],
+      "files": {
+        "css": "components/layout/grid-cards/component.css",
+        "html": "components/layout/grid-cards/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "2/3/4 列卡片网格",
+      "doc": "references/component-catalog.md#grid-cards"
+    },
+    {
+      "key": "layout.splitRow",
+      "category": "layout",
+      "variants": [
+        "default",
+        "balanced"
+      ],
+      "files": {
+        "css": "components/layout/split-row/component.css",
+        "html": "components/layout/split-row/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "layout.insightPanel"
+      ],
+      "reuse": "左右分栏",
+      "doc": "references/component-catalog.md#split-row"
+    },
+    {
+      "key": "layout.insightPanel",
+      "category": "layout",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/layout/insight-panel/component.css",
+        "html": "components/layout/insight-panel/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "split 左栏 card 化",
+      "doc": "references/component-catalog.md#insight-panel"
+    },
+    {
+      "key": "layout.archWrap",
+      "category": "layout",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/layout/arch-wrap/component.css",
+        "html": "components/layout/arch-wrap/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.lightbox"
+      ],
+      "reuse": "双栏 SVG/架构图",
+      "doc": "references/component-catalog.md#arch-wrap"
+    },
+    {
+      "key": "layout.directionCard",
+      "category": "layout",
+      "variants": [
+        "static",
+        "featured"
+      ],
+      "files": {
+        "css": "components/layout/direction-card/component.css",
+        "html": "components/layout/direction-card/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.detailSystem"
+      ],
+      "reuse": "研究方向四象限卡",
+      "doc": "references/component-catalog.md#direction-card"
+    },
+    {
+      "key": "layout.columns3",
+      "category": "layout",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/layout/columns3/component.css",
+        "html": "components/layout/columns3/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "产品三列摘要 legacy",
+      "doc": "references/component-catalog.md#columns3",
+      "conflicts": [
+        "interactive.roadmapOverlay"
+      ]
+    },
+    {
+      "key": "content.card",
+      "category": "content",
+      "variants": [
+        "static",
+        "clickable"
+      ],
+      "files": {
+        "css": "components/content/card/component.css",
+        "html": "components/content/card/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.detailSystem"
+      ],
+      "reuse": "信息卡/可点击展开",
+      "doc": "references/component-catalog.md#card"
+    },
+    {
+      "key": "content.bullets",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/bullets/component.css",
+        "html": "components/content/bullets/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "圆点列表",
+      "doc": "references/component-catalog.md#bullets"
+    },
+    {
+      "key": "content.timeline",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/timeline/component.css",
+        "html": "components/content/timeline/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "目录/进度行+badge",
+      "doc": "references/component-catalog.md#timeline"
+    },
+    {
+      "key": "content.flowStack",
+      "category": "content",
+      "variants": [
+        "static",
+        "clickable-items"
+      ],
+      "files": {
+        "css": "components/content/flow-stack/component.css",
+        "html": "components/content/flow-stack/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.detailSystem"
+      ],
+      "reuse": "纵向步骤栈",
+      "doc": "references/component-catalog.md#flow-stack"
+    },
+    {
+      "key": "content.dataTable",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/data-table/component.css",
+        "html": "components/content/data-table/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "对照/结果表",
+      "doc": "references/component-catalog.md#data-table"
+    },
+    {
+      "key": "content.metricBar",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/metric-bar/component.css",
+        "html": "components/content/metric-bar/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "一行核心结论",
+      "doc": "references/component-catalog.md#metric-bar"
+    },
+    {
+      "key": "content.capabilitiesGrid",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/capabilities-grid/component.css",
+        "html": "components/content/capabilities-grid/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "产品四能力 legacy",
+      "doc": "references/component-catalog.md#capabilities-grid"
+    },
+    {
+      "key": "content.miniList",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/mini-list/component.css",
+        "html": "components/content/mini-list/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "窄栏紧凑列表 legacy",
+      "doc": "references/component-catalog.md#mini-list"
+    },
+    {
+      "key": "flow.iclLayout",
+      "category": "flow",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/flow/icl-layout/component.css",
+        "html": "components/flow/icl-layout/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "问题+流程页容器",
+      "doc": "references/component-catalog.md#icl-layout"
+    },
+    {
+      "key": "flow.issueGrid",
+      "category": "flow",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/flow/issue-grid/component.css",
+        "html": "components/flow/issue-grid/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "缺陷/痛点并列",
+      "doc": "references/component-catalog.md#issue-grid"
+    },
+    {
+      "key": "flow.pipelineHorizontal",
+      "category": "flow",
+      "variants": [
+        "highlight",
+        "muted-steps"
+      ],
+      "files": {
+        "css": "components/flow/pipeline-horizontal/component.css",
+        "html": "components/flow/pipeline-horizontal/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "横向流程 3-7 步",
+      "doc": "references/component-catalog.md#pipeline-horizontal"
+    },
+    {
+      "key": "interactive.detailSystem",
+      "category": "interactive",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/interactive/detail-system/component.css",
+        "html": "components/interactive/detail-system/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "详情弹窗+trigger+template",
+      "doc": "references/component-catalog.md#detail-system"
+    },
+    {
+      "key": "interactive.lightbox",
+      "category": "interactive",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/interactive/lightbox/component.css",
+        "html": "components/interactive/lightbox/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "SVG/截图放大 DOM",
+      "doc": "references/component-catalog.md#lightbox"
+    },
+    {
+      "key": "interactive.screensGrid",
+      "category": "interactive",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/interactive/screens-grid/component.css",
+        "html": "components/interactive/screens-grid/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.lightbox"
+      ],
+      "reuse": "多截图网格 legacy",
+      "doc": "references/component-catalog.md#screens-grid"
+    },
+    {
+      "key": "interactive.roadmapOverlay",
+      "category": "interactive",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/interactive/roadmap-overlay/component.css",
+        "html": "components/interactive/roadmap-overlay/component.html",
+        "script": "components/interactive/roadmap-overlay/component.js"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "路线图全屏 overlay legacy",
+      "doc": "references/component-catalog.md#roadmap-overlay"
+    },
+    {
+      "key": "math.katex",
+      "category": "math",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/math/katex/head.html",
+        "html": "components/math/katex/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.detailSystem"
+      ],
+      "reuse": "KaTeX 公式渲染 head 片段",
+      "doc": "references/component-catalog.md#katex"
+    },
+    {
+      "key": "slide.cover",
+      "category": "slides",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/slides/cover/component.css",
+        "html": "components/slides/cover/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "封面页骨架",
+      "doc": "references/component-catalog.md#cover"
+    },
+    {
+      "key": "slide.thanks",
+      "category": "slides",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/slides/thanks/component.css",
+        "html": "components/slides/thanks/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "Thanks 末页",
+      "doc": "references/component-catalog.md#thanks"
+    },
+    {
+      "key": "slide.takeaways",
+      "category": "slides",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/slides/takeaways/component.css",
+        "html": "components/slides/takeaways/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "三要点页 legacy",
+      "doc": "references/component-catalog.md#takeaways"
+    },
+    {
+      "key": "slide.elevator",
+      "category": "slides",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/slides/elevator/component.css",
+        "html": "components/slides/elevator/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "电梯陈述页 legacy",
+      "doc": "references/component-catalog.md#elevator"
     }
   ]
 }
-

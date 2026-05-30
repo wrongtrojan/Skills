@@ -1,0 +1,20 @@
+<div class="roadmap-grid" role="group" aria-label="展望要点，点击查看全屏">
+  <button type="button" class="roadmap-tile" aria-haspopup="dialog" aria-controls="roadmap-full">
+    <h3>近期</h3>
+    <div class="roadmap-body"><ul><li>完善文档</li><li>CI 集成</li></ul></div>
+  </button>
+  <button type="button" class="roadmap-tile" aria-haspopup="dialog" aria-controls="roadmap-full">
+    <h3>中期</h3>
+    <div class="roadmap-body"><ul><li>插件生态</li><li>API 开放</li></ul></div>
+  </button>
+</div>
+
+<div class="roadmap-full" id="roadmap-full" role="dialog" aria-modal="true" aria-labelledby="roadmap-full-title" aria-hidden="true">
+  <button type="button" class="roadmap-full-backdrop" id="roadmap-full-backdrop" tabindex="-1" aria-label="关闭全屏"></button>
+  <div class="roadmap-full-panel">
+    <button type="button" class="roadmap-full-close" id="roadmap-full-close" aria-label="关闭">×</button>
+    <p class="roadmap-full-kicker">Roadmap · 项目展望</p>
+    <h2 class="roadmap-full-title" id="roadmap-full-title"></h2>
+    <div class="roadmap-full-body" id="roadmap-full-body"></div>
+  </div>
+</div>

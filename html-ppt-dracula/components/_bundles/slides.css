@@ -1,0 +1,78 @@
+/* slides bundle — cover accents, thanks, elevator, takeaways */
+
+.slide-thanks { justify-content: stretch; }
+.slide-thanks > .inner {
+  flex: 1;
+  justify-content: space-between;
+  min-height: 65vh;
+}
+.thanks-title {
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin: 0;
+  background: linear-gradient(120deg, var(--purple), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.thanks-foot {
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.thanks-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.thanks-foot a { color: var(--cyan); text-decoration: none; }
+.thanks-foot a:hover { text-decoration: underline; }
+
+.elevator {
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  font-weight: 500;
+  color: var(--cyan);
+  max-width: 22em;
+  line-height: 1.55;
+}
+.elevator span { color: var(--fg); }
+.elevator em { font-style: normal; color: var(--purple); }
+
+.take-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 1.5rem); }
+.take {
+  text-align: center;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: linear-gradient(160deg, var(--bg-alt), rgba(26, 27, 38, 0.72));
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.take:hover {
+  border-color: rgba(189, 147, 249, 0.45);
+  transform: translateY(-2px);
+}
+.take .label {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--yellow);
+  margin-bottom: clamp(0.85rem, 2vw, 1.1rem);
+}
+.take .kw {
+  font-size: clamp(0.92rem, 1.85vw, 1.05rem);
+  font-weight: 500;
+  color: rgba(248, 248, 242, 0.88);
+  line-height: 1.55;
+}
+.take .kw em { font-style: normal; color: var(--cyan); font-weight: 600; }
+
+@media (max-width: 820px) {
+  .take-grid { grid-template-columns: 1fr; }
+}

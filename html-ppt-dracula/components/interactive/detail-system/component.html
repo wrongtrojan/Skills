@@ -1,0 +1,16 @@
+<!-- Triggers use data-detail-id; templates live outside deck -->
+<button type="button" class="card detail-trigger" data-detail-id="detail-demo">
+  <h3>点击查看详情</h3><p>摘要文字</p>
+</button>
+<template id="detail-demo">
+  <h4>背景</h4><p>详情正文，支持 $E=mc^2$。</p>
+</template>
+
+<div class="detail-overlay" id="detail-overlay" role="dialog" aria-modal="true" aria-label="详情" aria-hidden="true">
+  <button type="button" class="overlay-backdrop" id="detail-backdrop" aria-label="关闭详情"></button>
+  <div class="detail-panel" id="detail-panel">
+    <button type="button" class="overlay-close" id="detail-close" aria-label="关闭">×</button>
+    <h3 id="detail-title"></h3>
+    <div id="detail-body"></div>
+  </div>
+</div>

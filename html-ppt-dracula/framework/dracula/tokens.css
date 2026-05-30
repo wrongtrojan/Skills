@@ -1,0 +1,18 @@
+:root {
+  --bg: #1a1b26;
+  --bg-alt: #22232f;
+  --fg: #f8f8f2;
+  --muted: #6272a4;
+  --purple: #bd93f9;
+  --cyan: #8be9fd;
+  --green: #50fa7b;
+  --orange: #ffb86c;
+  --pink: #ff79c6;
+  --yellow: #f1fa8c;
+  --red: #ff5555;
+  --border: rgba(98, 114, 164, 0.35);
+  --radius: 12px;
+  --shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  --font: "DM Sans", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}

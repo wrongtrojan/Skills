@@ -1,40 +1,41 @@
-# Editing Checklist (Core + Enabled Components)
+# Editing Checklist (v2)
 
-Use this checklist before finishing any generated/edited deck.
+Use before finishing any deck.
 
-## A. Core Mandatory Checks
+## A. Core structure
 
-- [ ] `main#deck`, `nav.nav-dots`, `#lightbox` and child ids exist.
-- [ ] Section ids == nav href ids == script `ids` array order.
-- [ ] Keyboard paging and Escape-close behavior remain valid.
-- [ ] `python scripts/validate_structure.py <output.html>` passes.
+- [ ] `main#deck` exists with `.slide` sections, each with unique `id`.
+- [ ] `nav.nav-dots` hrefs match section ids in the same order.
+- [ ] `SLIDE_IDS` / `var ids = [...]` matches section ids (see `runtime.js` or inline script).
+- [ ] `python scripts/validate_deck.py deck.html` passes.
 
-## B. Enabled Component Checks (conditional)
+## B. Overlays (if used)
 
-For each enabled component in final HTML (`data-component-key`):
+- [ ] Lightbox: all five ids present when `.arch-panel` or `.shot-tile` used.
+- [ ] Detail: overlay + templates when `.detail-trigger` used; `data-detail-id` matches `<template id>`.
+- [ ] Roadmap: `#roadmap-full*` nodes + `component.js` when `.roadmap-tile` used.
+- [ ] Escape closes topmost overlay; deck scroll restores.
 
-- [ ] required ids/classes from registry are present.
-- [ ] rule file markers (if configured) are present.
-- [ ] no conflict pair is enabled simultaneously.
-- [ ] every enabled component's `requires` dependencies are enabled.
-- [ ] no duplicate component key is enabled.
+## C. CSS bundles
 
-## C. Preset Visual Checks (Dracula)
+- [ ] `base.css` (+ needed `_bundles/*.css`) included — no missing layout.
+- [ ] Product decks: include `legacy.css` if using `.kicker`, `.elevator`, extra decoration.
+- [ ] KaTeX: `math/katex/head.html` linked when formulas present.
 
-- [ ] dark palette identity remains intact.
-- [ ] interactive elements keep consistent hover/focus style.
-- [ ] background decoration does not reduce readability.
-- [ ] breakpoints (`820px`, `520px`) still behave as expected.
-- [ ] no unresolved placeholder tokens remain (for example `[能力1]`, `[URL_1]`).
+## D. Content quality
 
-## D. Extension Acceptance (new component path)
+- [ ] No unresolved `[PLACEHOLDER]` tokens in publish output.
+- [ ] Dark palette readable; no low-contrast body text on `--bg-alt`.
+- [ ] Mobile: grids stack at 820px; nav dots move to bottom.
 
-When introducing a new component:
+## E. New component (optional)
 
-- [ ] snippet files created under `assets/components/<section>/<variant>/`
-- [ ] registry entry added (with requires/conflicts/required fields)
-- [ ] validation rule added if custom markers/hooks exist
-- [ ] scaffold + validator both pass with new component enabled
-- [ ] run scaffold with `--strict-assets` at least once before release
+- [ ] Example HTML in `components/<cat>/<slug>/component.html`
+- [ ] Bundle CSS updated; `component.css` comment points to bundle
+- [ ] Entry added via `scripts/bootstrap_v2_library.py`
+- [ ] Documented in `references/component-catalog.md`
 
+## F. No v1 artifacts
 
+- [ ] Do not use `assets/`, `validation-rules/`, or `scaffold_from_template.py`
+- [ ] Registry is `components/registry.json` (v2 keys like `slide.cover`)

@@ -1,114 +1,77 @@
 ---
 name: html-ppt-dracula
-description: Create or update a single-file HTML presentation using a hybrid component orchestration protocol (natural language default + manifest precise control) with Dracula style preset.
+description: Build or edit single-file HTML presentations with Dracula v2 framework and copy-paste component library (no scaffold).
 disable-model-invocation: true
 ---
 
-# HTML PPT Dracula Skill (Hybrid Components)
+# HTML PPT Dracula (v2)
 
-Build concise full-screen HTML slides by composing registered components into one output file.
+Create full-screen scroll-snap HTML decks by assembling **framework + component snippets**. There is no code generator — you copy HTML/CSS/JS into one file.
 
-## Dispatch Protocol
+## Source of truth
 
-This skill uses a hybrid assembly model:
+| Resource | Path |
+|----------|------|
+| Framework | `framework/dracula/` (`tokens.css`, `base.css`, `runtime.js`, `shell.html`) |
+| Components | `components/<category>/<slug>/component.html` |
+| CSS bundles | `components/_bundles/*.css` |
+| Registry | `components/registry.json` (31 keys) |
+| Catalog | `references/component-catalog.md` |
 
-1. **Natural-language default**: if user asks "make/edit a deck" without precision controls, use preset defaults.
-2. **Precise control**: if manifest is provided, manifest wins for component selection and content fields.
-3. **Direct override**: if no manifest, `--components` can replace preset defaults.
+## Required reading
 
-Priority for component selection:
+1. `references/style-system.md` — tokens, 1180px layout, bundles
+2. `references/assembly-guide.md` — step-by-step deck build
+3. `references/component-catalog.md` — all component keys
+4. `references/editing-checklist.md` — pre-delivery checks
 
-`manifest.components` > `--components` > `preset.defaultComponents`
+## Workflow
 
-## Source of Truth
-
-- Registry: `components/registry.json`
-- Contract reference: `components/schema.md`
-- Base shell: `assets/base/shell.html`
-- Section/variant snippets: `assets/components/<section>/<variant>/`
-- Rule files: `validation-rules/<component-key>.json`
-
-Never hardcode business components in orchestration logic. Read registry and compose dynamically.
-
-## Required Reading Order
-
-1. `references/style-system.md`
-2. `references/component-spec.md`
-3. `components/schema.md`
-4. `references/editing-checklist.md`
-
-## Build Workflow
-
-1. Resolve enabled components with hybrid priority.
-2. Load `assets/base/shell.html`.
-3. Inject selected section snippets (`component.html`) in order.
-4. Inject optional overlays/styles/scripts declared by each component.
-5. Replace placeholders for title/repo/text fields.
-6. Run validator (`core + enabled component rules`).
-7. Ensure unresolved placeholders are cleared (unless explicitly validating draft mode).
-8. Fix all failures before delivery.
-
-## Script Commands
-
-Natural-language/default path (preset):
+1. Copy `framework/dracula/shell.html` or an example deck.
+2. Include `base.css` + required `_bundles` (see component `component.css` comments).
+3. Paste slide content from `components/**/component.html`.
+4. Sync `nav.nav-dots`, section ids, and `SLIDE_IDS` in `runtime.js`.
+5. Add overlays (lightbox, detail, roadmap) once if needed.
+6. Validate:
 
 ```bash
-python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/scaffold_from_template.py" --output "path/to/output.html" --preset dracula
+python scripts/validate_deck.py path/to/deck.html
 ```
 
-Manifest precision path:
+Draft mode (allow bracket placeholders):
 
 ```bash
-python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/scaffold_from_template.py" --output "path/to/output.html" --manifest "path/to/manifest.json"
+python scripts/validate_deck.py path/to/deck.html --allow-placeholders
 ```
 
-Custom component list path:
+## Bootstrap library
+
+Regenerate component folders + registry after catalog changes:
 
 ```bash
-python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/scaffold_from_template.py" --output "path/to/output.html" --components "cover.basic,elevator.basic,capabilities.cards4,screens.grid8Lightbox,architecture.dualSvgZoom,outlook.roadmapOverlay,takeaways.cards3,thanks.basicFooter"
+python scripts/bootstrap_v2_library.py
 ```
 
-Validation:
+## Deck patterns
 
-```bash
-python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/validate_structure.py" "path/to/output.html"
-```
+- **Academic seminar** — see `examples/academic-seminar.md` (timeline, arch-wrap, detail, KaTeX)
+- **Product pitch** — see `examples/product-pitch.md` (elevator, capabilities, screens, takeaways)
 
-Allow placeholders in draft-only validation:
+## Hard constraints
 
-```bash
-python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/validate_structure.py" "path/to/output.html" --allow-placeholders
-```
+- Single HTML file output (CSS/JS may be inline or linked for authoring).
+- Keep scroll-snap, dot nav, keyboard paging (`↑/↓`, `Home/End`), Escape closes overlays.
+- Section ids == nav hrefs == script id array.
+- No unresolved `[PLACEHOLDER]` in published decks.
+- Do not use removed v1 paths (`assets/`, `scaffold_from_template.py`, `validation-rules/`).
 
-Strict optional-asset mode during scaffold:
+## Adding a component
 
-```bash
-python "C:/Users/24051/.cursor/skills/html-ppt-dracula/scripts/scaffold_from_template.py" --output "path/to/output.html" --preset dracula --strict-assets
-```
+1. Add example HTML + README under `components/<category>/<slug>/`.
+2. Add styles to the appropriate `_bundles/*.css`.
+3. Extend `COMPONENTS` in `scripts/bootstrap_v2_library.py` and run it.
+4. Document in `references/component-catalog.md`.
 
-## New Component 5-Step Method
+## Reference implementation
 
-1. Create snippet directory: `assets/components/<section>/<variant>/`.
-2. Add `component.html` (plus optional `overlay.html`, `component.css`, `component.js`).
-3. Register metadata in `components/registry.json` (`requires/conflicts/requiredIds/requiredClasses`).
-4. Add `validation-rules/<component-key>.json` when custom hooks/markers exist.
-5. Verify by running scaffold + validator on a deck that enables this component.
-
-## Hard Constraints
-
-- Keep single-file output.
-- Keep dot-nav, scroll-snap, keyboard navigation, and lightbox close semantics.
-- Keep dark Dracula style unless user explicitly requests another preset/theme.
-- Keep validator zero false-positive for disabled components.
-- Keep `requires/conflicts` constraints validated for enabled components.
-- Keep publish outputs free of unresolved placeholders (`[PLACEHOLDER]` tokens).
-
-## Recommended Delivery Workflow
-
-1. Scaffold deck (`--preset` or `--manifest`).
-2. Run strict scaffold check once before release (`--strict-assets`).
-3. Run validator in default mode (placeholder checks enabled).
-4. Only use `--allow-placeholders` for temporary draft validation.
-5. Perform manual visual preview after validator passes.
-
-
+`d:\UniversityStudy\Profession\Research\Article\presentation\RE-seminar.html` — full academic deck with inline CSS (equivalent bundles extracted in v2).
