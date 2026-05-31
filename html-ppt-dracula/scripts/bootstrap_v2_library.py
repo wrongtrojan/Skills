@@ -47,7 +47,7 @@ COMPONENTS = [
     ("interactive", "screens-grid", ["static"], "多截图网格 legacy", "interactive.screensGrid"),
     ("interactive", "roadmap-overlay", ["static"], "路线图全屏 overlay legacy", "interactive.roadmapOverlay"),
     ("interactive", "content-modal", ["static"], "JSON/文本内容弹窗", "interactive.contentModal"),
-    ("code", "highlight-js", ["json", "plaintext"], "highlight.js 语法高亮 CDN", "code.highlightJs"),
+    ("code", "highlight-js", ["json", "plaintext"], "highlight.js 语法高亮（本地 vendor）", "code.highlightJs"),
     ("math", "katex", ["static"], "KaTeX 公式渲染 head 片段", "math.katex"),
     ("slides", "cover", ["static"], "封面页骨架", "slide.cover"),
     ("slides", "thanks", ["static"], "Thanks 末页", "slide.thanks"),
@@ -244,11 +244,10 @@ EXAMPLES: dict[str, str] = {
     <pre class="content-modal-body dracula-scroll"><code id="content-modal-code" class="language-json"></code></pre>
   </div>
 </div>""",
-    "code.highlightJs": """<!-- Paste in <head> -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/dracula.min.css" crossorigin="anonymous" />
-<!-- Paste before </body> -->
-<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/json.min.js" crossorigin="anonymous"></script>""",
+    "code.highlightJs": """<!-- Copy vendor/highlightjs/ next to your deck; paste in <head> -->
+<link rel="stylesheet" href="vendor/highlightjs/dracula.css" />
+<script src="vendor/highlightjs/highlight.min.js"></script>
+<script src="vendor/highlightjs/json.min.js"></script>""",
     "math.katex": """<!-- Paste in <head> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 <!-- Paste before </body> -->
@@ -373,17 +372,29 @@ CONTENT_MODAL_JS = """
   var deck = document.getElementById("deck");
   if (!modal || !titleEl || !bodyEl) return;
 
-  function highlightBody(lang) {
-    if (typeof hljs === "undefined") return;
-    bodyEl.className = lang ? "language-" + lang : "language-plaintext";
+  function highlightBody(text, lang) {
+    lang = lang || "plaintext";
     bodyEl.removeAttribute("data-highlighted");
-    hljs.highlightElement(bodyEl);
+    if (lang === "plaintext") {
+      bodyEl.className = "";
+      bodyEl.textContent = text;
+      return;
+    }
+    bodyEl.className = "language-" + lang;
+    if (typeof hljs !== "undefined" && hljs.getLanguage && hljs.getLanguage(lang)) {
+      try {
+        var out = hljs.highlight(text, { language: lang, ignoreIllegals: true });
+        bodyEl.innerHTML = out.value;
+        bodyEl.classList.add("hljs");
+        return;
+      } catch (err) {}
+    }
+    bodyEl.textContent = text;
   }
 
   window.openContentModal = function (title, body, lang) {
     titleEl.textContent = title;
-    bodyEl.textContent = body;
-    highlightBody(lang || "plaintext");
+    highlightBody(body, lang || "plaintext");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.documentElement.classList.add("lightbox-open");

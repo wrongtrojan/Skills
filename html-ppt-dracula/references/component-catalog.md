@@ -67,7 +67,7 @@ Registry schema lives in `components/registry.json`. This catalog documents all 
 
 | Key | Purpose | Variants | pairsWith |
 |-----|---------|----------|-----------|
-| `code.highlightJs` | highlight.js 语法高亮 CDN | json, plaintext | `interactive.contentModal`, `content.evalList` |
+| `code.highlightJs` | highlight.js 语法高亮（本地 vendor） | json, plaintext | `interactive.contentModal`, `content.evalList` |
 
 ## Math
 

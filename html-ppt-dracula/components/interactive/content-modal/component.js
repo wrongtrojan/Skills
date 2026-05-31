@@ -7,17 +7,29 @@
   var deck = document.getElementById("deck");
   if (!modal || !titleEl || !bodyEl) return;
 
-  function highlightBody(lang) {
-    if (typeof hljs === "undefined") return;
-    bodyEl.className = lang ? "language-" + lang : "language-plaintext";
+  function highlightBody(text, lang) {
+    lang = lang || "plaintext";
     bodyEl.removeAttribute("data-highlighted");
-    hljs.highlightElement(bodyEl);
+    if (lang === "plaintext") {
+      bodyEl.className = "";
+      bodyEl.textContent = text;
+      return;
+    }
+    bodyEl.className = "language-" + lang;
+    if (typeof hljs !== "undefined" && hljs.getLanguage && hljs.getLanguage(lang)) {
+      try {
+        var out = hljs.highlight(text, { language: lang, ignoreIllegals: true });
+        bodyEl.innerHTML = out.value;
+        bodyEl.classList.add("hljs");
+        return;
+      } catch (err) {}
+    }
+    bodyEl.textContent = text;
   }
 
   window.openContentModal = function (title, body, lang) {
     titleEl.textContent = title;
-    bodyEl.textContent = body;
-    highlightBody(lang || "plaintext");
+    highlightBody(body, lang || "plaintext");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.documentElement.classList.add("lightbox-open");
