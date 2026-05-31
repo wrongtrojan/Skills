@@ -37,6 +37,7 @@ Fonts: **DM Sans** (UI), **JetBrains Mono** (labels/code).
 ## Layout (v2)
 
 - `main.deck#deck` — scroll-snap, hidden scrollbar
+- `.dracula-scroll` — themed thin scrollbar for inner panels (modals, code blocks, detail)
 - `.slide` — full viewport (`100vh` / `100dvh`)
 - `.inner` — **max-width 1180px**, centered, vertical gap via flex
 - Breakpoints: **820px** (stack grids, move nav dots bottom), **520px** (single-column screenshots)

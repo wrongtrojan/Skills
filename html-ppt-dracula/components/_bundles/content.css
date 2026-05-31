@@ -107,6 +107,51 @@
   color: var(--cyan);
 }
 
+.arch-sub {
+  margin: -0.5rem 0 1rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.eval-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.eval-row {
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+}
+.eval-name { font-weight: 600; color: var(--cyan); font-size: 0.9rem; }
+.eval-cmd { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.eval-link, .eval-badge {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: rgba(98, 114, 164, 0.15);
+  color: var(--purple);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.eval-link:hover, .eval-badge:hover {
+  border-color: var(--purple);
+  background: rgba(189, 147, 249, 0.15);
+}
+.eval-badge.pass { color: var(--green); }
+.eval-badge.warn { color: var(--orange); }
+.eval-foot {
+  margin: 0.75rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--green);
+}
+
 @media (max-width: 820px) {
   .tl-row { grid-template-columns: 1fr; gap: 0.35rem; }
+  .eval-row { grid-template-columns: 1fr; }
 }

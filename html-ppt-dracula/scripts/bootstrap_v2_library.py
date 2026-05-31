@@ -14,6 +14,7 @@ BUNDLE_MAP = {
     "flow": "flow.css",
     "interactive": "interactive.css",
     "slides": "slides.css",
+    "code": "code.css",
     "math": None,
 }
 
@@ -37,6 +38,7 @@ COMPONENTS = [
     ("content", "metric-bar", ["static"], "一行核心结论", "content.metricBar"),
     ("content", "capabilities-grid", ["static"], "产品四能力 legacy", "content.capabilitiesGrid"),
     ("content", "mini-list", ["static"], "窄栏紧凑列表 legacy", "content.miniList"),
+    ("content", "eval-list", ["static"], "Golden eval 行 + 可点 badge", "content.evalList"),
     ("flow", "icl-layout", ["static"], "问题+流程页容器", "flow.iclLayout"),
     ("flow", "issue-grid", ["static"], "缺陷/痛点并列", "flow.issueGrid"),
     ("flow", "pipeline-horizontal", ["highlight", "muted-steps"], "横向流程 3-7 步", "flow.pipelineHorizontal"),
@@ -44,6 +46,8 @@ COMPONENTS = [
     ("interactive", "lightbox", ["static"], "SVG/截图放大 DOM", "interactive.lightbox"),
     ("interactive", "screens-grid", ["static"], "多截图网格 legacy", "interactive.screensGrid"),
     ("interactive", "roadmap-overlay", ["static"], "路线图全屏 overlay legacy", "interactive.roadmapOverlay"),
+    ("interactive", "content-modal", ["static"], "JSON/文本内容弹窗", "interactive.contentModal"),
+    ("code", "highlight-js", ["json", "plaintext"], "highlight.js 语法高亮 CDN", "code.highlightJs"),
     ("math", "katex", ["static"], "KaTeX 公式渲染 head 片段", "math.katex"),
     ("slides", "cover", ["static"], "封面页骨架", "slide.cover"),
     ("slides", "thanks", ["static"], "Thanks 末页", "slide.thanks"),
@@ -53,9 +57,11 @@ COMPONENTS = [
 
 PAIRS = {
     "content.card": ["interactive.detailSystem"],
+    "content.evalList": ["interactive.contentModal", "code.highlightJs"],
     "layout.archWrap": ["interactive.lightbox"],
     "layout.directionCard": ["interactive.detailSystem"],
     "interactive.screensGrid": ["interactive.lightbox"],
+    "interactive.contentModal": ["code.highlightJs"],
     "content.flowStack": ["interactive.detailSystem"],
     "layout.splitRow": ["layout.insightPanel"],
     "math.katex": ["interactive.detailSystem"],
@@ -144,6 +150,16 @@ EXAMPLES: dict[str, str] = {
   <h3>下一步</h3>
   <ul><li>集成 Zotero MCP</li><li>批量导出 PDF</li><li>多语言界面</li></ul>
 </div>""",
+    "content.evalList": """<p class="arch-sub">点击 golden 文件名或基线 badge 查看详情（可滚轮浏览）</p>
+<div class="eval-list">
+  <div class="eval-row">
+    <div class="eval-name">表分类</div>
+    <div class="eval-cmd">table_classify_eval --report-id 1</div>
+    <button type="button" class="eval-link" data-golden="table_classify">golden_tables.json</button>
+    <button type="button" class="eval-badge pass" data-baseline="table_classify">26/26</button>
+  </div>
+</div>
+<p class="eval-foot">推荐顺序：table_classify → ingest --force → relation → smoke → analysis</p>""",
     "flow.iclLayout": """<div class="icl-layout">
   <div class="issue-grid">
     <div class="issue-card"><span class="issue-num">1</span><div><strong>示例选择</strong><p>随机示例效果不稳定</p></div></div>
@@ -220,6 +236,19 @@ EXAMPLES: dict[str, str] = {
     <div class="roadmap-full-body" id="roadmap-full-body"></div>
   </div>
 </div>""",
+    "interactive.contentModal": """<div id="content-modal" class="content-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="详情">
+  <button type="button" class="content-modal-backdrop" id="content-modal-backdrop" tabindex="-1" aria-label="关闭"></button>
+  <div class="content-modal-inner">
+    <button type="button" class="content-modal-close" id="content-modal-close" aria-label="关闭">×</button>
+    <h3 id="content-modal-title" class="content-modal-title"></h3>
+    <pre class="content-modal-body dracula-scroll"><code id="content-modal-code" class="language-json"></code></pre>
+  </div>
+</div>""",
+    "code.highlightJs": """<!-- Paste in <head> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/dracula.min.css" crossorigin="anonymous" />
+<!-- Paste before </body> -->
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/json.min.js" crossorigin="anonymous"></script>""",
     "math.katex": """<!-- Paste in <head> -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" />
 <!-- Paste before </body> -->
@@ -259,19 +288,27 @@ def write_component_files(cat: str, slug: str, key: str, variants: list[str], re
 
     bundle = bundle_for_category(cat)
     css_file = folder / "component.css"
-    if cat != "math":
+    if cat not in ("math", "code"):
         css_file.write_text(
             f"/* See components/_bundles/{bundle} for {key} */\n",
             encoding="utf-8",
         )
 
     example = EXAMPLES.get(key, f"<!-- Example: {key} -->")
-    (folder / "component.html").write_text(example.strip() + "\n", encoding="utf-8")
+    if key == "code.highlightJs":
+        (folder / "component.html").write_text(
+            '<pre class="code-block dracula-scroll"><code class="language-json">{\n  "items": [{ "id": "demo", "expect_type": "subsidiaries" }]\n}</code></pre>\n',
+            encoding="utf-8",
+        )
+    else:
+        (folder / "component.html").write_text(example.strip() + "\n", encoding="utf-8")
 
     if key == "interactive.roadmapOverlay":
         (folder / "component.js").write_text(ROADMAP_JS.strip() + "\n", encoding="utf-8")
+    if key == "interactive.contentModal":
+        (folder / "component.js").write_text(CONTENT_MODAL_JS.strip() + "\n", encoding="utf-8")
 
-    if cat == "math":
+    if cat in ("math", "code"):
         (folder / "head.html").write_text(example.strip() + "\n", encoding="utf-8")
 
     readme = folder / "README.md"
@@ -326,12 +363,62 @@ ROADMAP_JS = """
 })();
 """
 
+CONTENT_MODAL_JS = """
+(function () {
+  var modal = document.getElementById("content-modal");
+  var titleEl = document.getElementById("content-modal-title");
+  var bodyEl = document.getElementById("content-modal-code");
+  var closeBtn = document.getElementById("content-modal-close");
+  var backdrop = document.getElementById("content-modal-backdrop");
+  var deck = document.getElementById("deck");
+  if (!modal || !titleEl || !bodyEl) return;
+
+  function highlightBody(lang) {
+    if (typeof hljs === "undefined") return;
+    bodyEl.className = lang ? "language-" + lang : "language-plaintext";
+    bodyEl.removeAttribute("data-highlighted");
+    hljs.highlightElement(bodyEl);
+  }
+
+  window.openContentModal = function (title, body, lang) {
+    titleEl.textContent = title;
+    bodyEl.textContent = body;
+    highlightBody(lang || "plaintext");
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.documentElement.classList.add("lightbox-open");
+    if (deck) deck.style.overflow = "hidden";
+    if (closeBtn) closeBtn.focus();
+  };
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    var lightbox = document.getElementById("lightbox");
+    if (!lightbox || !lightbox.classList.contains("is-open")) {
+      document.documentElement.classList.remove("lightbox-open");
+      if (deck) deck.style.overflow = "";
+    }
+  }
+
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  if (backdrop) backdrop.addEventListener("click", closeModal);
+  document.addEventListener("keydown", function (e) {
+    if (modal.classList.contains("is-open") && e.key === "Escape") {
+      e.preventDefault();
+      e.stopPropagation();
+      closeModal();
+    }
+  }, true);
+})();
+"""
+
 
 def main() -> None:
     entries = []
     for cat, slug, variants, reuse, key in COMPONENTS:
         css_path = f"components/{cat}/{slug}/component.css"
-        if cat == "math":
+        if cat in ("math", "code"):
             css_path = f"components/{cat}/{slug}/head.html"
         write_component_files(cat, slug, key, variants, reuse)
         entry = {
@@ -349,13 +436,15 @@ def main() -> None:
         }
         if key == "interactive.roadmapOverlay":
             entry["files"]["script"] = f"components/{cat}/{slug}/component.js"
+        if key == "interactive.contentModal":
+            entry["files"]["script"] = f"components/{cat}/{slug}/component.js"
         if key in CONFLICTS:
             entry["conflicts"] = CONFLICTS[key]
         entries.append(entry)
 
     registry = {
         "version": "2.0.0",
-        "categories": ["typography", "layout", "content", "flow", "interactive", "math", "slides"],
+        "categories": ["typography", "layout", "content", "flow", "interactive", "code", "math", "slides"],
         "components": entries,
     }
     (COMP / "registry.json").write_text(

@@ -1,0 +1,29 @@
+/* code bundle — syntax-highlighted blocks (hljs) */
+
+.code-block {
+  margin: 0;
+  padding: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: auto;
+  max-height: min(70vh, 520px);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+.code-block code.hljs {
+  display: block;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+.content-modal-body code.hljs {
+  display: block;
+  padding: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}

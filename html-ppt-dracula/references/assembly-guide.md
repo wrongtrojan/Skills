@@ -54,6 +54,7 @@ Append after `</main>` if used:
 
 - `interactive/lightbox/component.html` — always for arch/screens
 - `interactive/detail-system/component.html` — detail triggers + templates
+- `interactive/content-modal/component.html` + `component.js` — JSON/text modal (pair with `code/highlight-js/head.html`)
 - `interactive/roadmap-overlay/component.html` + `component.js` — roadmap variant
 
 `<template id="detail-…">` blocks can live anywhere in `<body>`.
@@ -67,6 +68,8 @@ Append after `</main>` if used:
 Or inline the script from `runtime.js` and set `var ids = [...]` at the top.
 
 For KaTeX, paste `components/math/katex/head.html` in head + before runtime.
+
+For JSON/text modals, paste `components/code/highlight-js/head.html` and append `components/interactive/content-modal/component.js` after runtime.
 
 For roadmap overlay, append `components/interactive/roadmap-overlay/component.js` after runtime.
 

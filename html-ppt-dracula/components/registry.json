@@ -6,6 +6,7 @@
     "content",
     "flow",
     "interactive",
+    "code",
     "math",
     "slides"
   ],
@@ -353,6 +354,26 @@
       "doc": "references/component-catalog.md#mini-list"
     },
     {
+      "key": "content.evalList",
+      "category": "content",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/content/eval-list/component.css",
+        "html": "components/content/eval-list/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "interactive.contentModal",
+        "code.highlightJs"
+      ],
+      "reuse": "Golden eval 行 + 可点 badge",
+      "doc": "references/component-catalog.md#eval-list"
+    },
+    {
       "key": "flow.iclLayout",
       "category": "flow",
       "variants": [
@@ -474,6 +495,44 @@
       "pairsWith": [],
       "reuse": "路线图全屏 overlay legacy",
       "doc": "references/component-catalog.md#roadmap-overlay"
+    },
+    {
+      "key": "interactive.contentModal",
+      "category": "interactive",
+      "variants": [
+        "static"
+      ],
+      "files": {
+        "css": "components/interactive/content-modal/component.css",
+        "html": "components/interactive/content-modal/component.html",
+        "script": "components/interactive/content-modal/component.js"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [
+        "code.highlightJs"
+      ],
+      "reuse": "JSON/文本内容弹窗",
+      "doc": "references/component-catalog.md#content-modal"
+    },
+    {
+      "key": "code.highlightJs",
+      "category": "code",
+      "variants": [
+        "json",
+        "plaintext"
+      ],
+      "files": {
+        "css": "components/code/highlight-js/head.html",
+        "html": "components/code/highlight-js/component.html"
+      },
+      "requires": [
+        "framework.dracula"
+      ],
+      "pairsWith": [],
+      "reuse": "highlight.js 语法高亮 CDN",
+      "doc": "references/component-catalog.md#highlight-js"
     },
     {
       "key": "math.katex",

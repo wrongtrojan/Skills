@@ -15,7 +15,7 @@ Create full-screen scroll-snap HTML decks by assembling **framework + component 
 | Framework | `framework/dracula/` (`tokens.css`, `base.css`, `runtime.js`, `shell.html`) |
 | Components | `components/<category>/<slug>/component.html` |
 | CSS bundles | `components/_bundles/*.css` |
-| Registry | `components/registry.json` (31 keys) |
+| Registry | `components/registry.json` (34 keys) |
 | Catalog | `references/component-catalog.md` |
 
 ## Required reading
@@ -31,7 +31,7 @@ Create full-screen scroll-snap HTML decks by assembling **framework + component 
 2. Include `base.css` + required `_bundles` (see component `component.css` comments).
 3. Paste slide content from `components/**/component.html`.
 4. Sync `nav.nav-dots`, section ids, and `SLIDE_IDS` in `runtime.js`.
-5. Add overlays (lightbox, detail, roadmap) once if needed.
+5. Add overlays (lightbox, detail, content-modal, roadmap) once if needed.
 6. Validate:
 
 ```bash

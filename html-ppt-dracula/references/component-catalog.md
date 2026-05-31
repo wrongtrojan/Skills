@@ -1,6 +1,6 @@
 # Component Catalog (v2)
 
-Registry schema lives in `components/registry.json`. This catalog documents all **31** component keys.
+Registry schema lives in `components/registry.json`. This catalog documents all **34** component keys.
 
 > **Note:** v1 `components/schema.md` is removed; use this file + registry as the contract.
 
@@ -43,6 +43,7 @@ Registry schema lives in `components/registry.json`. This catalog documents all 
 | `content.metricBar` | 一行结论条 | static | — |
 | `content.capabilitiesGrid` | 四能力 + tags | static | — |
 | `content.miniList` | 单栏紧凑列表 | static | — |
+| `content.evalList` | Golden eval 行 + 可点 badge | static | `interactive.contentModal`, `code.highlightJs` |
 
 ## Flow
 
@@ -60,6 +61,13 @@ Registry schema lives in `components/registry.json`. This catalog documents all 
 | `interactive.lightbox` | 截图/SVG 放大 DOM | static | `layout.archWrap`, `interactive.screensGrid` |
 | `interactive.screensGrid` | 截图网格 `.shot-tile` | static | `interactive.lightbox` |
 | `interactive.roadmapOverlay` | 2×2 路线图全屏 | static | conflicts `layout.columns3`; needs `component.js` |
+| `interactive.contentModal` | JSON/文本内容弹窗 | static | `code.highlightJs`; needs `component.js` |
+
+## Code
+
+| Key | Purpose | Variants | pairsWith |
+|-----|---------|----------|-----------|
+| `code.highlightJs` | highlight.js 语法高亮 CDN | json, plaintext | `interactive.contentModal`, `content.evalList` |
 
 ## Math
 
@@ -84,7 +92,8 @@ Styles are consolidated in `components/_bundles/`:
 - `layout.css` — grids, split, arch-wrap, columns3
 - `content.css` — cards, bullets, timeline, tables, tags
 - `flow.css` — flow-stack, issue-grid, pipeline
-- `interactive.css` — detail, lightbox, screens, roadmap
+- `interactive.css` — detail, lightbox, content-modal, screens, roadmap
+- `code.css` — code-block, hljs modal tweaks
 - `slides.css` — thanks, elevator, takeaways
 - `legacy.css` — extra decoration, legacy lightbox aliases
 
