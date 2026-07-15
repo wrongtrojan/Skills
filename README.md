@@ -6,6 +6,7 @@ Reusable Cursor skill packages for structured workflows.
 |-------|---------|-------------|
 | [html-ppt-dracula](html-ppt-dracula/) | Single-file HTML slide decks (Dracula theme) | `html-ppt-dracula/SKILL.md` |
 | [quiz-markdown-to-web](quiz-markdown-to-web/) | Markdown question banks → static `quiz_web/` site | `quiz-markdown-to-web/SKILL.md` |
+| [meeting-summary-pdf](meeting-summary-pdf/) | Chinese Markdown → fixed-style HTML/A4 PDF | `meeting-summary-pdf/SKILL.md` |
 
 ---
 
@@ -83,3 +84,32 @@ python quiz-markdown-to-web/scripts/package_quiz_web.py --project-root <project_
 Open `<project-root>/quiz_web/index.html` in a browser when the build finishes.
 
 See [`quiz-markdown-to-web/SKILL.md`](quiz-markdown-to-web/SKILL.md) for agent instructions.
+
+---
+
+## meeting-summary-pdf
+
+Converts Chinese meeting / retrospective Markdown into fixed-style HTML and A4 PDF (cover, meta table, TOC, CJK nowrap protection), matching the seminar summary export style.
+
+**Location:** `meeting-summary-pdf/`
+
+| What | Where |
+|------|-------|
+| Agent workflow | `SKILL.md` |
+| Config & troubleshooting | `reference.md` |
+| Default CSS | `templates/styles.css` |
+| Example config | `examples/config.example.json` |
+| Build script | `scripts/build_pdf.py` |
+
+**Quick start:**
+
+```bash
+python meeting-summary-pdf/scripts/build_pdf.py \
+  --input path/to/doc.md \
+  --config meeting-summary-pdf/examples/config.example.json \
+  --output-dir path/to/output
+```
+
+**Requirements:** `pip install markdown`, Chrome or Edge installed.
+
+See [`meeting-summary-pdf/SKILL.md`](meeting-summary-pdf/SKILL.md) for agent instructions.
