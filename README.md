@@ -7,6 +7,7 @@ Reusable Cursor skill packages for structured workflows.
 | [html-ppt-dracula](html-ppt-dracula/) | Single-file HTML slide decks (Dracula theme) | `html-ppt-dracula/SKILL.md` |
 | [quiz-markdown-to-web](quiz-markdown-to-web/) | Markdown question banks → static `quiz_web/` site | `quiz-markdown-to-web/SKILL.md` |
 | [meeting-summary-pdf](meeting-summary-pdf/) | Chinese Markdown → fixed-style HTML/A4 PDF | `meeting-summary-pdf/SKILL.md` |
+| [math-notes-pdf](math-notes-pdf/) | Obsidian math notes → plain numbered PDF | `math-notes-pdf/SKILL.md` |
 
 ---
 
@@ -113,3 +114,30 @@ python meeting-summary-pdf/scripts/build_pdf.py \
 **Requirements:** `pip install markdown`, Chrome or Edge installed.
 
 See [`meeting-summary-pdf/SKILL.md`](meeting-summary-pdf/SKILL.md) for agent instructions.
+
+---
+
+## math-notes-pdf
+
+Proofreads Chinese math or probability Obsidian notes only where asked, then exports a plain A4 PDF: numbered headings, real lists, full-width rules, and a light watermark. Layout fixes stay in a build copy so the source note is not restyled.
+
+**Location:** `math-notes-pdf/`
+
+| What | Where |
+|------|-------|
+| Agent workflow | `SKILL.md` |
+| Build script | `scripts/build_pdf.py` |
+
+**Quick start:**
+
+```bash
+python math-notes-pdf/scripts/build_pdf.py \
+  --input path/to/notes.md \
+  --title "Document Title" \
+  --watermark 木马 \
+  --output path/to/notes.pdf
+```
+
+**Requirements:** `pandoc`, XeLaTeX with `ctex`, and `typst` when the note contains `![[figure.svg]]`. Use `SimSun` / `SimHei`; variable CJK fonts fail in `xdvipdfmx`.
+
+See [`math-notes-pdf/SKILL.md`](math-notes-pdf/SKILL.md) for agent instructions.
