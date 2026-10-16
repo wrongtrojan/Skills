@@ -69,13 +69,15 @@ def convert_svg(svg: Path, build_dir: Path) -> Path:
         raise SystemExit(f"Missing figure: {svg}")
     if shutil.which("typst") is None:
         raise SystemExit("typst is required to embed Obsidian SVG figures")
+    local_svg = build_dir / svg.name
+    shutil.copy2(svg, local_svg)
     typ = build_dir / f"{svg.stem}.typ"
     pdf = build_dir / f"{svg.stem}.pdf"
     typ.write_text(
-        f'#set page(width: auto, height: auto, margin: 0pt)\n#image("{svg.as_posix()}")\n',
+        f'#set page(width: auto, height: auto, margin: 0pt)\n#image("{local_svg.name}")\n',
         encoding="utf-8",
     )
-    subprocess.run(["typst", "compile", str(typ), str(pdf)], check=True)
+    subprocess.run(["typst", "compile", str(typ), str(pdf)], cwd=build_dir, check=True)
     return pdf
 
 
